@@ -72,23 +72,7 @@ mem_episodes_table = Table(
 
 
 def get_sql_engine():
-    """
-    Get SQLAlchemy engine for Supabase PostgreSQL.
-
-    The default Supabase ``.pooler.supabase.com`` URL we expect in
-    ``SUPABASE_DB_URL`` should point at the **transaction-mode pooler
-    on port 6543**, not the session-mode pooler on 5432.  Session-mode
-    caps at ~15 clients per project, which a chat workload exhausts in
-    minutes; the transaction pooler handles thousands.
-
-    Engine config:
-      - ``pool_size`` / ``max_overflow``: small client-side pool; each
-        connection is a "session" with the pooler that shares an
-        underlying Postgres connection across many transactions.
-      - ``pool_pre_ping=True``: catches dead connections before use.
-      - ``pool_recycle=300``: refresh hourly idle connections to avoid
-        the pooler's idle-disconnect.
-    """
+ 
     global _engine
     if _engine is None:
         db_url = os.getenv("SUPABASE_DB_URL")
